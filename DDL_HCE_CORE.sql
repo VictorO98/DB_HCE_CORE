@@ -40,7 +40,7 @@ CREATE TABLE Acudientes (
 
 -- Table: Antecedentes
 CREATE TABLE Antecedentes (
-    idAntecedente integer NOT NULL,
+    idAntecedente integer NOT NULL AUTO_INCREMENT,
     accidentes varchar(25) NOT NULL,
     antecedentesHereditarios varchar(25) NOT NULL,
     enfermedadesInfancia varchar(25) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Antecedentes (
 
 -- Table: Citas_Medicas
 CREATE TABLE Citas_Medicas (
-    idConsulta integer NOT NULL,
+    idConsulta integer NOT NULL AUTO_INCREMENT,
     fecha timestamp NOT NULL,
     motivo varchar(50) NOT NULL,
     epsAgenda integer NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE Citas_Medicas (
 
 -- Table: DiagXTrata
 CREATE TABLE DiagXTrata (
-    Id integer NOT NULL,
+    Id integer NOT NULL AUTO_INCREMENT,
     Diagnosticos_idDiagnostico integer NOT NULL,
     Tratamientos_idTratamiento integer NOT NULL,
     CONSTRAINT DiagXTrata_pk PRIMARY KEY (Id)
@@ -74,7 +74,7 @@ CREATE TABLE DiagXTrata (
 
 -- Table: Diagnosticos
 CREATE TABLE Diagnosticos (
-    idDiagnostico integer NOT NULL,
+    idDiagnostico integer NOT NULL AUTO_INCREMENT,
     Diagnostico varchar(50) NOT NULL,
     Citas_Medicas_idConsulta integer NOT NULL,
     CONSTRAINT Diagnosticos_pk PRIMARY KEY (idDiagnostico)
@@ -90,7 +90,7 @@ CREATE TABLE Entidad (
 
 -- Table: ExamenSegmentario
 CREATE TABLE ExamenSegmentario (
-    idExamen integer NOT NULL,
+    idExamen integer NOT NULL AUTO_INCREMENT,
     cabeza varchar(25) NOT NULL,
     cuello varchar(25) NOT NULL,
     torax varchar(25) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE ExamenSegmentario (
 
 -- Table: Examen_Fisico
 CREATE TABLE Examen_Fisico (
-    idExamen integer NOT NULL,
+    idExamen integer NOT NULL AUTO_INCREMENT,
     estadoConciencia varchar(25) NOT NULL,
     lenguaje varchar(25) NOT NULL,
     auditivo varchar(25) NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE Examen_Fisico (
 
 -- Table: Examenes
 CREATE TABLE Examenes (
-    idExamen integer NOT NULL,
+    idExamen integer NOT NULL AUTO_INCREMENT,
     resumen varchar(30) NOT NULL,
     resultados varchar(30) NOT NULL,
     anexos varchar(30) NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE Examenes (
 
 -- Table: Fisiologica
 CREATE TABLE Fisiologica (
-    IdFisiologica integer NOT NULL,
+    IdFisiologica integer NOT NULL AUTO_INCREMENT,
     lactancia varchar(25) NOT NULL,
     iniciacionSexual varchar(25) NOT NULL,
     ginecoObstretico varchar(25) NOT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE Fisiologica (
 
 -- Table: Habitos
 CREATE TABLE Habitos (
-    idHabito integer NOT NULL,
+    idHabito integer NOT NULL AUTO_INCREMENT,
     alimentacion varchar(25) NOT NULL,
     apetito varchar(25) NOT NULL,
     sed varchar(25) NOT NULL,
@@ -166,7 +166,7 @@ CREATE TABLE Habitos (
 
 -- Table: Historia_Clinica
 CREATE TABLE Historia_Clinica (
-    idHistoria integer NOT NULL,
+    idHistoria integer NOT NULL AUTO_INCREMENT,
     Entidad_idEntidad integer NOT NULL,
     Antecedentes_idAntecedente integer NOT NULL,
     Fisiologica_IdFisiologica integer NOT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE Historia_Clinica (
 
 -- Table: MedXTrata
 CREATE TABLE MedXTrata (
-    id integer NOT NULL,
+    id integer NOT NULL AUTO_INCREMENT,
     Medicamentos_idMedicamento integer NOT NULL,
     Tratamientos_idTratamiento integer NOT NULL,
     RepeticionMed varchar(30) NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE MedXTrata (
 
 -- Table: Medicamentos
 CREATE TABLE Medicamentos (
-    idMedicamento integer NOT NULL,
+    idMedicamento integer NOT NULL AUTO_INCREMENT,
     nombreMedicamento varchar(20) NOT NULL,
     gramaje float(10,2) NOT NULL,
     CONSTRAINT Medicamentos_pk PRIMARY KEY (idMedicamento)
@@ -193,7 +193,7 @@ CREATE TABLE Medicamentos (
 
 -- Table: Medicos
 CREATE TABLE Medicos (
-    idMedico integer NOT NULL,
+    idMedico integer NOT NULL AUTO_INCREMENT,
     nombreMedico varchar(25) NOT NULL,
     fechaNacimiento date NOT NULL,
     telefono integer NOT NULL,
@@ -209,20 +209,20 @@ CREATE TABLE Pacientes (
     telefono integer NOT NULL,
     sexo varchar(10) NOT NULL,
     token varchar(50) NOT NULL,
-    IdPaciente integer NOT NULL,
+    IdPaciente integer NOT NULL AUTO_INCREMENT,
     CONSTRAINT Pacientes_pk PRIMARY KEY (IdPaciente)
 );
 
 -- Table: TipoExamen
 CREATE TABLE TipoExamen (
-    idTipoExamen integer NOT NULL,
+    idTipoExamen integer NOT NULL AUTO_INCREMENT,
     nombreTipo varchar(15) NOT NULL,
     CONSTRAINT TipoExamen_pk PRIMARY KEY (idTipoExamen)
 );
 
 -- Table: Tratamientos
 CREATE TABLE Tratamientos (
-    idTratamiento integer NOT NULL,
+    idTratamiento integer NOT NULL AUTO_INCREMENT,
     concepto varchar(50) NOT NULL,
     CONSTRAINT Tratamientos_pk PRIMARY KEY (idTratamiento)
 );
