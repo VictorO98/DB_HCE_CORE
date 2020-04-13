@@ -5,6 +5,27 @@ use db_hce_core;
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2020-04-13 20:55:18.296
 
+-- DROPS
+
+DROP TABLE acudientes CASCADE;
+DROP TABLE Antecedentes CASCADE;
+DROP TABLE Citas_Medicas CASCADE;
+DROP TABLE DiagXTrata CASCADE;
+DROP TABLE Diagnosticos CASCADE;
+DROP TABLE Entidad CASCADE;
+DROP TABLE ExamenSegmentario CASCADE;
+DROP TABLE Examen_Fisico CASCADE;
+DROP TABLE Examenes CASCADE;
+DROP TABLE Fisiologica CASCADE;
+DROP TABLE Habitos CASCADE;
+DROP TABLE Historia_Clinica CASCADE;
+DROP TABLE MedXTrata CASCADE;
+DROP TABLE Medicamentos CASCADE;
+DROP TABLE Medicos CASCADE;
+DROP TABLE Pacientes CASCADE;
+DROP TABLE TipoExamen CASCADE;
+DROP TABLE Tratamientos CASCADE;
+
 -- tables
 -- Table: Acudientes
 CREATE TABLE Acudientes (
@@ -274,6 +295,27 @@ ALTER TABLE MedXTrata ADD CONSTRAINT MedXDiagXTrata_Medicamentos FOREIGN KEY Med
 -- Reference: MedXTrataXDiag_Tratamientos (table: MedXTrata)
 ALTER TABLE MedXTrata ADD CONSTRAINT MedXTrataXDiag_Tratamientos FOREIGN KEY MedXTrataXDiag_Tratamientos (Tratamientos_idTratamiento)
     REFERENCES Tratamientos (idTratamiento);
+    
+-- unique keys
+-- Reference (Unique key in Historias clinicas)
+ALTER TABLE historia_clinica ADD CONSTRAINT U_Pacientes_idPaciente UNIQUE (Pacientes_idPaciente);
+
+ALTER TABLE historia_clinica ADD CONSTRAINT U_Fisiologicas_idFisiologica UNIQUE(Fisiologica_idFisiologica);
+
+ALTER TABLE historia_clinica ADD CONSTRAINT U_Antecedentes_idAntecedente UNIQUE(Antecedentes_idAntecedente);
+
+-- References (Unique key in Citas medicas)
+ALTER TABLE Citas_Medicas ADD CONSTRAINT U_Examen_Fisico_idExamen UNIQUE(Examen_Fisico_idExamen);
+
+ALTER TABLE citas_medicas ADD CONSTRAINT U_Habitos_idHabito UNIQUE(Habitos_idHabito);
+
+ALTER TABLE citas_medicas ADD CONSTRAINT U_ExSegmentario_idExamen UNIQUE (ExSegmentario_idExamen);
+
+-- References (Unique Key in Pacientes)
+ALTER TABLE pacientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
+
+-- References (Unique Key in Acudientes)
+ALTER TABLE acudientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
 
 -- End of file.
 
