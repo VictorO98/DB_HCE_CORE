@@ -6,25 +6,24 @@ use db_hce_core;
 -- Last modification date: 2020-04-13 20:55:18.296
 
 -- DROPS
-
 DROP TABLE acudientes CASCADE;
-DROP TABLE Antecedentes CASCADE;
-DROP TABLE Citas_Medicas CASCADE;
 DROP TABLE DiagXTrata CASCADE;
+DROP TABLE Examenes CASCADE;
+DROP TABLE MedXTrata CASCADE;
+DROP TABLE Tratamientos CASCADE;
 DROP TABLE Diagnosticos CASCADE;
-DROP TABLE Entidad CASCADE;
+DROP TABLE Medicamentos CASCADE;
+DROP TABLE TipoExamen CASCADE;
+DROP TABLE Citas_Medicas CASCADE;
 DROP TABLE ExamenSegmentario CASCADE;
 DROP TABLE Examen_Fisico CASCADE;
-DROP TABLE Examenes CASCADE;
-DROP TABLE Fisiologica CASCADE;
 DROP TABLE Habitos CASCADE;
-DROP TABLE Historia_Clinica CASCADE;
-DROP TABLE MedXTrata CASCADE;
-DROP TABLE Medicamentos CASCADE;
 DROP TABLE Medicos CASCADE;
+DROP TABLE Historia_Clinica CASCADE;
 DROP TABLE Pacientes CASCADE;
-DROP TABLE TipoExamen CASCADE;
-DROP TABLE Tratamientos CASCADE;
+DROP TABLE Antecedentes CASCADE;
+DROP TABLE Entidad CASCADE;
+DROP TABLE Fisiologica CASCADE;
 
 -- tables
 -- Table: Acudientes
@@ -317,5 +316,36 @@ ALTER TABLE pacientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
 -- References (Unique Key in Acudientes)
 ALTER TABLE acudientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
 
+-- Index
+-- References Acudientes
+CREATE INDEX ix_pacientes_idPaciente ON acudientes (Pacientes_idPaciente);
+
+-- References Historia CLinica
+CREATE INDEX ix_Entidad_idEntidad ON historia_clinica (Entidad_idEntidad);
+CREATE INDEX ix_Antecedentes_idAntecedente ON historia_clinica (Antecedentes_idAntecedente);
+CREATE INDEX ix_Fisiologica_idFisiologica ON historia_clinica (Fisiologica_idFisiologica);
+CREATE INDEX ix_Pacientes_idPaciente ON historia_clinica (Pacientes_idPaciente);
+
+-- References Citas medicas
+CREATE INDEX ix_Medicos_idMedico ON citas_medicas (Medicos_idMedico);
+CREATE INDEX ix_Examen_Fisico_idExamen ON citas_medicas (Examen_Fisico_idExamen);
+CREATE INDEX ix_Habitos_idHabito ON citas_medicas (Habitos_idHabito);
+CREATE INDEX ix_ExSegmentario_idExamen ON citas_medicas (ExSegmentario_idExamen);
+CREATE INDEX  ix_Historia_Clinica_idHistoria ON citas_medicas (Historia_Clinica_idHistoria);
+
+-- References Examenes 
+CREATE INDEX ix_TipoExamen_idTipoExamen ON examenes (TipoExamen_idTipoExamen);
+CREATE INDEX ix_Diagnosticos_idDiagnostico ON examenes (Diagnosticos_idDiagnostico);
+
+-- References Diagnosticos
+CREATE INDEX ix_Citas_Medicas_idConsulta ON Diagnosticos (Citas_Medicas_idConsulta);
+
+-- References DiagXTrata
+CREATE INDEX ix_Diagnosticos_idDiagnostico ON DiagXTrata (Diagnosticos_idDiagnostico);
+CREATE INDEX ix_Tratamientos_idTratamiento ON DiagXTrata (Tratamientos_idTratamiento);
+
+-- References MedXTrata
+CREATE INDEX ix_Medicamentos_idMedicamento ON MedXTrata (Medicamentos_idMedicamento);
+CREATE INDEX ix_Tratamientos_idTratamiento ON MedXTrata (Tratamientos_idTratamiento);
 -- End of file.
 
