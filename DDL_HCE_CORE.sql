@@ -114,11 +114,11 @@ CREATE TABLE Examen_Fisico (
     lenguaje varchar(25) NOT NULL,
     auditivo varchar(25) NOT NULL,
     agudezaVisual varchar(25) NOT NULL,
-    peso float(5,2) NOT NULL,
-    estatura float(5,2) NOT NULL,
+    peso float(10) NOT NULL,
+    estatura float(10) NOT NULL,
     facie varchar(25) NOT NULL,
     edadRealAparente varchar(25) NOT NULL,
-    temperatura float(5,2) NOT NULL,
+    temperatura float(10) NOT NULL,
     actitud varchar(25) NOT NULL,
     CONSTRAINT Examen_Fisico_pk PRIMARY KEY (idExamen)
 );
@@ -187,7 +187,7 @@ CREATE TABLE MedXTrata (
 CREATE TABLE Medicamentos (
     idMedicamento integer NOT NULL AUTO_INCREMENT,
     nombreMedicamento varchar(20) NOT NULL,
-    gramaje float(10,2) NOT NULL,
+    gramaje float(10) NOT NULL,
     CONSTRAINT Medicamentos_pk PRIMARY KEY (idMedicamento)
 );
 
@@ -298,45 +298,45 @@ ALTER TABLE MedXTrata ADD CONSTRAINT MedXTrataXDiag_Tratamientos FOREIGN KEY Med
     
 -- unique keys
 -- Reference (Unique key in Historias clinicas)
-ALTER TABLE historia_clinica ADD CONSTRAINT U_Pacientes_idPaciente UNIQUE (Pacientes_idPaciente);
+ALTER TABLE Historia_Clinica ADD CONSTRAINT U_Pacientes_idPaciente UNIQUE (Pacientes_idPaciente);
 
-ALTER TABLE historia_clinica ADD CONSTRAINT U_Fisiologicas_idFisiologica UNIQUE(Fisiologica_idFisiologica);
+ALTER TABLE Historia_Clinica ADD CONSTRAINT U_Fisiologicas_idFisiologica UNIQUE(Fisiologica_idFisiologica);
 
-ALTER TABLE historia_clinica ADD CONSTRAINT U_Antecedentes_idAntecedente UNIQUE(Antecedentes_idAntecedente);
+ALTER TABLE Historia_Clinica ADD CONSTRAINT U_Antecedentes_idAntecedente UNIQUE(Antecedentes_idAntecedente);
 
 -- References (Unique key in Citas medicas)
 ALTER TABLE Citas_Medicas ADD CONSTRAINT U_Examen_Fisico_idExamen UNIQUE(Examen_Fisico_idExamen);
 
-ALTER TABLE citas_medicas ADD CONSTRAINT U_Habitos_idHabito UNIQUE(Habitos_idHabito);
+ALTER TABLE Citas_Medicas ADD CONSTRAINT U_Habitos_idHabito UNIQUE(Habitos_idHabito);
 
-ALTER TABLE citas_medicas ADD CONSTRAINT U_ExSegmentario_idExamen UNIQUE (ExSegmentario_idExamen);
+ALTER TABLE Citas_Medicas ADD CONSTRAINT U_ExSegmentario_idExamen UNIQUE (ExSegmentario_idExamen);
 
 -- References (Unique Key in Pacientes)
-ALTER TABLE pacientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
+ALTER TABLE Pacientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
 
 -- References (Unique Key in Acudientes)
-ALTER TABLE acudientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
+ALTER TABLE Acudientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
 
 -- Index
 -- References Acudientes
-CREATE INDEX ix_pacientes_idPaciente ON acudientes (Pacientes_idPaciente);
+CREATE INDEX ix_pacientes_idPaciente ON Acudientes (Pacientes_idPaciente);
 
 -- References Historia CLinica
-CREATE INDEX ix_Entidad_idEntidad ON historia_clinica (Entidad_idEntidad);
-CREATE INDEX ix_Antecedentes_idAntecedente ON historia_clinica (Antecedentes_idAntecedente);
-CREATE INDEX ix_Fisiologica_idFisiologica ON historia_clinica (Fisiologica_idFisiologica);
-CREATE INDEX ix_Pacientes_idPaciente ON historia_clinica (Pacientes_idPaciente);
+CREATE INDEX ix_Entidad_idEntidad ON Historia_Clinica (Entidad_idEntidad);
+CREATE INDEX ix_Antecedentes_idAntecedente ON Historia_Clinica (Antecedentes_idAntecedente);
+CREATE INDEX ix_Fisiologica_idFisiologica ON Historia_Clinica (Fisiologica_idFisiologica);
+CREATE INDEX ix_Pacientes_idPaciente ON Historia_Clinica (Pacientes_idPaciente);
 
 -- References Citas medicas
-CREATE INDEX ix_Medicos_idMedico ON citas_medicas (Medicos_idMedico);
-CREATE INDEX ix_Examen_Fisico_idExamen ON citas_medicas (Examen_Fisico_idExamen);
-CREATE INDEX ix_Habitos_idHabito ON citas_medicas (Habitos_idHabito);
-CREATE INDEX ix_ExSegmentario_idExamen ON citas_medicas (ExSegmentario_idExamen);
-CREATE INDEX  ix_Historia_Clinica_idHistoria ON citas_medicas (Historia_Clinica_idHistoria);
+CREATE INDEX ix_Medicos_idMedico ON Citas_Medicas (Medicos_idMedico);
+CREATE INDEX ix_Examen_Fisico_idExamen ON Citas_Medicas (Examen_Fisico_idExamen);
+CREATE INDEX ix_Habitos_idHabito ON Citas_Medicas (Habitos_idHabito);
+CREATE INDEX ix_ExSegmentario_idExamen ON Citas_Medicas (ExSegmentario_idExamen);
+CREATE INDEX  ix_Historia_Clinica_idHistoria ON Citas_Medicas (Historia_Clinica_idHistoria);
 
 -- References Examenes 
-CREATE INDEX ix_TipoExamen_idTipoExamen ON examenes (TipoExamen_idTipoExamen);
-CREATE INDEX ix_Diagnosticos_idDiagnostico ON examenes (Diagnosticos_idDiagnostico);
+CREATE INDEX ix_TipoExamen_idTipoExamen ON Examenes (TipoExamen_idTipoExamen);
+CREATE INDEX ix_Diagnosticos_idDiagnostico ON Examenes (Diagnosticos_idDiagnostico);
 
 -- References Diagnosticos
 CREATE INDEX ix_Citas_Medicas_idConsulta ON Diagnosticos (Citas_Medicas_idConsulta);
