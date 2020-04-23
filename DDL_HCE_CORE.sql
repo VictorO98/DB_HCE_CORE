@@ -28,13 +28,14 @@ DROP TABLE Fisiologica CASCADE;
 -- tables
 -- Table: Acudientes
 CREATE TABLE Acudientes (
+	idAcudiente integer NOT NULL AUTO_INCREMENT,
     DNI integer NOT NULL,
     nombreAcudiente varchar(15) NOT NULL,
     fechaNacimiento date NOT NULL,
-    telefono integer NOT NULL,
+    telefono BIGINT NOT NULL,
     sexo varchar(15) NOT NULL,
     Pacientes_IdPaciente integer NOT NULL,
-    CONSTRAINT Acudientes_pk PRIMARY KEY (DNI)
+    CONSTRAINT Acudientes_pk PRIMARY KEY (idAcudiente)
 );
 
 -- Table: Antecedentes
@@ -205,7 +206,7 @@ CREATE TABLE Pacientes (
     nombreCliente varchar(25) NOT NULL,
     fechaNacimiento date NOT NULL,
     estadoCivil varchar(10) NOT NULL,
-    telefono integer NOT NULL,
+    telefono BIGINT NOT NULL,
     sexo varchar(10) NOT NULL,
     token varchar(50) NOT NULL,
     IdPaciente integer NOT NULL AUTO_INCREMENT,
@@ -351,7 +352,7 @@ CREATE INDEX ix_Tratamientos_idTratamiento ON MedXTrata (Tratamientos_idTratamie
 -- Testing
 
 INSERT INTO pacientes(DNI, nombreCliente, fechaNacimiento, estadoCivil, telefono, sexo, token, IdPaciente)
-	VALUES (1144100868,"Victor",1998-02-28,"soltero",302240533, "masculino","6864f6sd4fsd6",null);
+	VALUES (1144100868,"Victor",sysdate(),"soltero",3022405333, "masculino","6864f6sd4fsd6",null);
     
 INSERT INTO pacientes(DNI, nombreCliente, fechaNacimiento, estadoCivil, telefono, sexo, token, IdPaciente)
 	VALUES (66678978,"Gertrudiz",'1998-02-28',"Casada",25375, "femenino","64f6as1f6as4f6",null);
