@@ -29,7 +29,7 @@ DROP TABLE Fisiologica CASCADE;
 -- Table: Acudientes
 CREATE TABLE Acudientes (
 	idAcudiente integer NOT NULL AUTO_INCREMENT,
-    DNI integer NOT NULL,
+    DNI BIGINT NOT NULL,
     nombreAcudiente varchar(15) NOT NULL,
     fechaNacimiento date NOT NULL,
     telefono BIGINT NOT NULL,
@@ -193,16 +193,16 @@ CREATE TABLE Medicamentos (
 
 -- Table: Medicos
 CREATE TABLE Medicos (
-    idMedico integer NOT NULL AUTO_INCREMENT,
+    idMedico integer NOT NULL,
     nombreMedico varchar(25) NOT NULL,
     fechaNacimiento date NOT NULL,
-    telefono integer NOT NULL,
+    telefono BIGINT NOT NULL,
     CONSTRAINT Medicos_pk PRIMARY KEY (idMedico)
 );
 
 -- Table: Pacientes
 CREATE TABLE Pacientes (
-    DNI integer NOT NULL,
+    DNI BIGINT,
     nombreCliente varchar(25) NOT NULL,
     fechaNacimiento date NOT NULL,
     estadoCivil varchar(10) NOT NULL,
@@ -348,16 +348,6 @@ CREATE INDEX ix_Tratamientos_idTratamiento ON DiagXTrata (Tratamientos_idTratami
 -- References MedXTrata
 CREATE INDEX ix_Medicamentos_idMedicamento ON MedXTrata (Medicamentos_idMedicamento);
 CREATE INDEX ix_Tratamientos_idTratamiento ON MedXTrata (Tratamientos_idTratamiento);
-
--- Testing
-
-INSERT INTO pacientes(DNI, nombreCliente, fechaNacimiento, estadoCivil, telefono, sexo, token, IdPaciente)
-	VALUES (1144100868,"Victor",sysdate(),"soltero",3022405333, "masculino","6864f6sd4fsd6",null);
-    
-INSERT INTO pacientes(DNI, nombreCliente, fechaNacimiento, estadoCivil, telefono, sexo, token, IdPaciente)
-	VALUES (66678978,"Gertrudiz",'1998-02-28',"Casada",25375, "femenino","64f6as1f6as4f6",null);
-    
- INSERT INTO pacientes(DNI, nombreCliente, fechaNacimiento, estadoCivil, telefono, sexo, token, IdPaciente)
-	VALUES (498,"Sonsio",'1998-03-28',"Casada",25375, "femenino","64f6as1f6as4f6",null);   
+ 
 -- End of file.
 
