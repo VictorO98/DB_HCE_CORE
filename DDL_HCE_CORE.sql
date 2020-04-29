@@ -6,7 +6,6 @@ use db_hce_core;
 -- Last modification date: 2020-04-13 20:55:18.296
 
 -- DROPS
-DROP TABLE acudientes CASCADE;
 DROP TABLE DiagXTrata CASCADE;
 DROP TABLE Examenes CASCADE;
 DROP TABLE MedXTrata CASCADE;
@@ -20,27 +19,36 @@ DROP TABLE Examen_Fisico CASCADE;
 DROP TABLE Habitos CASCADE;
 DROP TABLE Medicos CASCADE;
 DROP TABLE Historia_Clinica CASCADE;
-DROP TABLE Pacientes CASCADE;
 DROP TABLE Antecedentes CASCADE;
 DROP TABLE Entidad CASCADE;
 DROP TABLE Fisiologica CASCADE;
+DROP TABLE AcudientesXPacientes CASCADE;
+DROP TABLE Pacientes CASCADE;
+DROP TABLE acudientes CASCADE;
 
 -- tables
 -- Table: Acudientes
 CREATE TABLE Acudientes (
-	idAcudiente integer NOT NULL AUTO_INCREMENT,
+	idAcudiente INT NOT NULL AUTO_INCREMENT,
     DNI BIGINT NOT NULL,
     nombreAcudiente varchar(15) NOT NULL,
     fechaNacimiento date NOT NULL,
     telefono BIGINT NOT NULL,
     sexo varchar(15) NOT NULL,
-    Pacientes_IdPaciente integer NOT NULL,
     CONSTRAINT Acudientes_pk PRIMARY KEY (idAcudiente)
+);
+
+-- Table: AcudientesXPacientes
+CREATE TABLE AcudientesXPacientes(
+	id INT NOT NULL AUTO_INCREMENT,
+    idPaciente INT,
+    idAcudiente INT,
+    CONSTRAINT id_Pk PRIMARY KEY (id)
 );
 
 -- Table: Antecedentes
 CREATE TABLE Antecedentes (
-    idAntecedente integer NOT NULL AUTO_INCREMENT,
+    idAntecedente INT NOT NULL,
     accidentes varchar(25) NOT NULL,
     antecedentesHereditarios varchar(25) NOT NULL,
     enfermedadesInfancia varchar(25) NOT NULL,
@@ -52,37 +60,37 @@ CREATE TABLE Antecedentes (
 
 -- Table: Citas_Medicas
 CREATE TABLE Citas_Medicas (
-    idConsulta integer NOT NULL AUTO_INCREMENT,
+    idConsulta INT NOT NULL AUTO_INCREMENT,
     fecha timestamp NOT NULL,
     motivo varchar(50) NOT NULL,
-    epsAgenda integer NOT NULL,
-    Medicos_idMedico integer NOT NULL,
-    Examen_Fisico_idExamen integer NOT NULL,
-    Habitos_idHabito integer NOT NULL,
-    ExSegmentario_idExamen integer NOT NULL,
-    Historia_Clinica_idHistoria integer NOT NULL,
+    epsAgenda INT NOT NULL,
+    Medicos_idMedico BIGINT NOT NULL,
+    Examen_Fisico_idExamen INT NOT NULL,
+    Habitos_idHabito INT NOT NULL,
+    ExSegmentario_idExamen INT NOT NULL,
+    Historia_Clinica_idHistoria INT NOT NULL,
     CONSTRAINT Citas_Medicas_pk PRIMARY KEY (idConsulta)
 );
 
 -- Table: DiagXTrata
 CREATE TABLE DiagXTrata (
-    Id integer NOT NULL AUTO_INCREMENT,
-    Diagnosticos_idDiagnostico integer NOT NULL,
-    Tratamientos_idTratamiento integer NOT NULL,
+    Id INT NOT NULL AUTO_INCREMENT,
+    Diagnosticos_idDiagnostico INT NOT NULL,
+    Tratamientos_idTratamiento INT NOT NULL,
     CONSTRAINT DiagXTrata_pk PRIMARY KEY (Id)
 );
 
 -- Table: Diagnosticos
 CREATE TABLE Diagnosticos (
-    idDiagnostico integer NOT NULL AUTO_INCREMENT,
+    idDiagnostico INT NOT NULL AUTO_INCREMENT,
     Diagnostico varchar(50) NOT NULL,
-    Citas_Medicas_idConsulta integer NOT NULL,
+    Citas_Medicas_idConsulta INT NOT NULL,
     CONSTRAINT Diagnosticos_pk PRIMARY KEY (idDiagnostico)
 );
 
 -- Table: Entidad
 CREATE TABLE Entidad (
-    idEntidad integer NOT NULL,
+    idEntidad INT NOT NULL,
     nombreEntidad varchar(25) NOT NULL,
     token varchar(50) NOT NULL,
     CONSTRAINT Entidad_pk PRIMARY KEY (idEntidad)
@@ -90,7 +98,7 @@ CREATE TABLE Entidad (
 
 -- Table: ExamenSegmentario
 CREATE TABLE ExamenSegmentario (
-    idExamen integer NOT NULL AUTO_INCREMENT,
+    idExamen INT NOT NULL AUTO_INCREMENT,
     cabeza varchar(25) NOT NULL,
     cuello varchar(25) NOT NULL,
     torax varchar(25) NOT NULL,
@@ -109,7 +117,7 @@ CREATE TABLE ExamenSegmentario (
 
 -- Table: Examen_Fisico
 CREATE TABLE Examen_Fisico (
-    idExamen integer NOT NULL AUTO_INCREMENT,
+    idExamen INT NOT NULL AUTO_INCREMENT,
     estadoConciencia varchar(25) NOT NULL,
     lenguaje varchar(25) NOT NULL,
     auditivo varchar(25) NOT NULL,
@@ -125,18 +133,18 @@ CREATE TABLE Examen_Fisico (
 
 -- Table: Examenes
 CREATE TABLE Examenes (
-    idExamen integer NOT NULL AUTO_INCREMENT,
+    idExamen INT NOT NULL AUTO_INCREMENT,
     resumen varchar(30) NOT NULL,
     resultados varchar(30) NOT NULL,
     anexos varchar(30) NOT NULL,
-    TipoExamen_idTipoExamen integer NOT NULL,
-    Diagnosticos_idDiagnostico integer NOT NULL,
+    TipoExamen_idTipoExamen INT NOT NULL,
+    Diagnosticos_idDiagnostico INT NOT NULL,
     CONSTRAINT Examenes_pk PRIMARY KEY (idExamen)
 );
 
 -- Table: Fisiologica
 CREATE TABLE Fisiologica (
-    IdFisiologica integer NOT NULL AUTO_INCREMENT,
+    IdFisiologica INT NOT NULL,
     lactancia varchar(25) NOT NULL,
     iniciacionSexual varchar(25) NOT NULL,
     ginecoObstretico varchar(25) NOT NULL,
@@ -149,7 +157,7 @@ CREATE TABLE Fisiologica (
 
 -- Table: Habitos
 CREATE TABLE Habitos (
-    idHabito integer NOT NULL AUTO_INCREMENT,
+    idHabito INT NOT NULL AUTO_INCREMENT,
     alimentacion varchar(25) NOT NULL,
     apetito varchar(25) NOT NULL,
     sed varchar(25) NOT NULL,
@@ -166,26 +174,26 @@ CREATE TABLE Habitos (
 
 -- Table: Historia_Clinica
 CREATE TABLE Historia_Clinica (
-    idHistoria integer NOT NULL AUTO_INCREMENT,
-    Entidad_idEntidad integer NOT NULL,
-    Antecedentes_idAntecedente integer NOT NULL,
-    Fisiologica_IdFisiologica integer NOT NULL,
-    Pacientes_IdPaciente integer NOT NULL,
+    idHistoria INT NOT NULL AUTO_INCREMENT,
+    Entidad_idEntidad INT NOT NULL,
+    Antecedentes_idAntecedente INT NOT NULL,
+    Fisiologica_IdFisiologica INT NOT NULL,
+    Pacientes_IdPaciente INT NOT NULL,
     CONSTRAINT Historia_Clinica_pk PRIMARY KEY (idHistoria)
 );
 
 -- Table: MedXTrata
 CREATE TABLE MedXTrata (
-    id integer NOT NULL AUTO_INCREMENT,
-    Medicamentos_idMedicamento integer NOT NULL,
-    Tratamientos_idTratamiento integer NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    Medicamentos_idMedicamento INT NOT NULL,
+    Tratamientos_idTratamiento INT NOT NULL,
     RepeticionMed varchar(30) NOT NULL,
     CONSTRAINT MedXTrata_pk PRIMARY KEY (id)
 );
 
 -- Table: Medicamentos
 CREATE TABLE Medicamentos (
-    idMedicamento integer NOT NULL AUTO_INCREMENT,
+    idMedicamento INT NOT NULL AUTO_INCREMENT,
     nombreMedicamento varchar(20) NOT NULL,
     gramaje float(10) NOT NULL,
     CONSTRAINT Medicamentos_pk PRIMARY KEY (idMedicamento)
@@ -193,11 +201,11 @@ CREATE TABLE Medicamentos (
 
 -- Table: Medicos
 CREATE TABLE Medicos (
-    idMedico integer NOT NULL,
+    DNI BIGINT NOT NULL,
     nombreMedico varchar(25) NOT NULL,
     fechaNacimiento date NOT NULL,
     telefono BIGINT NOT NULL,
-    CONSTRAINT Medicos_pk PRIMARY KEY (idMedico)
+    CONSTRAINT Medicos_pk PRIMARY KEY (DNI)
 );
 
 -- Table: Pacientes
@@ -209,29 +217,31 @@ CREATE TABLE Pacientes (
     telefono BIGINT NOT NULL,
     sexo varchar(10) NOT NULL,
     token varchar(50) NOT NULL,
-    IdPaciente integer NOT NULL AUTO_INCREMENT,
+    IdPaciente INT NOT NULL AUTO_INCREMENT,
     CONSTRAINT Pacientes_pk PRIMARY KEY (IdPaciente)
 );
 
 -- Table: TipoExamen
 CREATE TABLE TipoExamen (
-    idTipoExamen integer NOT NULL AUTO_INCREMENT,
+    idTipoExamen INT NOT NULL AUTO_INCREMENT,
     nombreTipo varchar(15) NOT NULL,
     CONSTRAINT TipoExamen_pk PRIMARY KEY (idTipoExamen)
 );
 
 -- Table: Tratamientos
 CREATE TABLE Tratamientos (
-    idTratamiento integer NOT NULL AUTO_INCREMENT,
+    idTratamiento INT NOT NULL AUTO_INCREMENT,
     concepto varchar(50) NOT NULL,
     CONSTRAINT Tratamientos_pk PRIMARY KEY (idTratamiento)
 );
 
 -- foreign keys
--- Reference: Acudientes_Pacientes (table: Acudientes)
-ALTER TABLE Acudientes ADD CONSTRAINT Acudientes_Pacientes FOREIGN KEY Acudientes_Pacientes (Pacientes_IdPaciente)
-    REFERENCES Pacientes (IdPaciente);
-
+ALTER TABLE AcudientesXPacientes ADD CONSTRAINT FK_idPaciente FOREIGN KEY FK_idPaciente(idPaciente)
+	REFERENCES Pacientes(idPaciente);
+    
+ALTER TABLE AcudientesXPacientes ADD CONSTRAINT FK_idAcudiente FOREIGN KEY FK_idAcudiente(idAcudiente)
+	REFERENCES Acudientes(idAcudiente);
+    
 -- Reference: CitasMedicasExamenSegmentario (table: Citas_Medicas)
 ALTER TABLE Citas_Medicas ADD CONSTRAINT CitasMedicasExamenSegmentario FOREIGN KEY CitasMedicasExamenSegmentario (ExSegmentario_idExamen)
     REFERENCES ExamenSegmentario (idExamen);
@@ -250,7 +260,7 @@ ALTER TABLE Citas_Medicas ADD CONSTRAINT Citas_Medicas_Historia_Clinica FOREIGN 
 
 -- Reference: Citas_Medicas_Medicos (table: Citas_Medicas)
 ALTER TABLE Citas_Medicas ADD CONSTRAINT Citas_Medicas_Medicos FOREIGN KEY Citas_Medicas_Medicos (Medicos_idMedico)
-    REFERENCES Medicos (idMedico);
+    REFERENCES Medicos (DNI);
 
 -- Reference: DiagXTrata_Diagnosticos (table: DiagXTrata)
 ALTER TABLE DiagXTrata ADD CONSTRAINT DiagXTrata_Diagnosticos FOREIGN KEY DiagXTrata_Diagnosticos (Diagnosticos_idDiagnostico)
@@ -312,14 +322,15 @@ ALTER TABLE Citas_Medicas ADD CONSTRAINT U_Habitos_idHabito UNIQUE(Habitos_idHab
 ALTER TABLE Citas_Medicas ADD CONSTRAINT U_ExSegmentario_idExamen UNIQUE (ExSegmentario_idExamen);
 
 -- References (Unique Key in Pacientes)
-ALTER TABLE Pacientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
+ALTER TABLE Pacientes ADD CONSTRAINT U_DNI_P UNIQUE (DNI);
 
 -- References (Unique Key in Acudientes)
-ALTER TABLE Acudientes ADD CONSTRAINT U_DNI UNIQUE (DNI);
+ALTER TABLE Acudientes ADD CONSTRAINT U_DNI_A UNIQUE (DNI);
 
 -- Index
--- References Acudientes
-CREATE INDEX ix_pacientes_idPaciente ON Acudientes (Pacientes_idPaciente);
+-- References AcudientesXPacientes
+CREATE INDEX ix_idPaciente ON AcudientesXPacientes (idPaciente);
+CREATE INDEX ix_idAcudiente ON AcudientesXPacientes (idAcudiente);
 
 -- References Historia CLinica
 CREATE INDEX ix_Entidad_idEntidad ON Historia_Clinica (Entidad_idEntidad);
