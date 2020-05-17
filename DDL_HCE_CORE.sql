@@ -39,7 +39,7 @@ CREATE TABLE Acudientes (
 
 -- Table: AcudientesXPacientes
 CREATE TABLE AcudientesXPacientes(
-	id INT NOT NULL AUTO_INCREMENT,
+	id BIGINT NOT NULL AUTO_INCREMENT,
     DNIPACIENTE BIGINT,
     DNIACUDIENTE BIGINT,
     CONSTRAINT id_Pk PRIMARY KEY (id)
@@ -47,11 +47,11 @@ CREATE TABLE AcudientesXPacientes(
 
 -- Table: Antecedentes
 CREATE TABLE Antecedentes (
-    idAntecedente INT NOT NULL,
+    idAntecedente BIGINT NOT NULL,
     accidentes varchar(200) NOT NULL,
     antecedentesHereditarios varchar(200) NOT NULL,
     enfermedadesInfancia varchar(200) NOT NULL,
-    intervencionesQuirurgicas varchar(200) NOT NULL,
+    BIGINTervencionesQuirurgicas varchar(200) NOT NULL,
     alergias varchar(200) NOT NULL,
     inmunizacion varchar(200) NOT NULL,
     CONSTRAINT Antecedentes_pk PRIMARY KEY (idAntecedente)
@@ -59,37 +59,37 @@ CREATE TABLE Antecedentes (
 
 -- Table: Citas_Medicas
 CREATE TABLE Citas_Medicas (
-    idConsulta INT NOT NULL AUTO_INCREMENT,
+    idConsulta BIGINT NOT NULL AUTO_INCREMENT,
     fecha timestamp NOT NULL,
     motivo varchar(200) NOT NULL,
-    epsAgenda INT NOT NULL,
+    epsAgenda BIGINT NOT NULL,
     Medicos_idMedico BIGINT NOT NULL,
-    Examen_Fisico_idExamen INT NOT NULL,
-    Habitos_idHabito INT NOT NULL,
-    ExSegmentario_idExamen INT NOT NULL,
-    Historia_Clinica_idHistoria INT NOT NULL,
+    Examen_Fisico_idExamen BIGINT NOT NULL,
+    Habitos_idHabito BIGINT NOT NULL,
+    ExSegmentario_idExamen BIGINT NOT NULL,
+    Historia_Clinica_idHistoria BIGINT NOT NULL,
     CONSTRAINT Citas_Medicas_pk PRIMARY KEY (idConsulta)
 );
 
 -- Table: DiagXTrata
 CREATE TABLE DiagXTrata (
-    Id INT NOT NULL AUTO_INCREMENT,
-    Diagnosticos_idDiagnostico INT NOT NULL,
-    Tratamientos_idTratamiento INT NOT NULL,
+    Id BIGINT NOT NULL AUTO_INCREMENT,
+    Diagnosticos_idDiagnostico BIGINT NOT NULL,
+    Tratamientos_idTratamiento BIGINT NOT NULL,
     CONSTRAINT DiagXTrata_pk PRIMARY KEY (Id)
 );
 
 -- Table: Diagnosticos
 CREATE TABLE Diagnosticos (
-    idDiagnostico INT NOT NULL AUTO_INCREMENT,
+    idDiagnostico BIGINT NOT NULL AUTO_INCREMENT,
     Diagnostico varchar(200) NOT NULL,
-    Citas_Medicas_idConsulta INT NOT NULL,
+    Citas_Medicas_idConsulta BIGINT NOT NULL,
     CONSTRAINT Diagnosticos_pk PRIMARY KEY (idDiagnostico)
 );
 
 -- Table: Entidad
 CREATE TABLE Entidad (
-    idEntidad INT NOT NULL,
+    idEntidad BIGINT NOT NULL,
     nombreEntidad varchar(200) NOT NULL,
     token varchar(200) NOT NULL,
     CONSTRAINT Entidad_pk PRIMARY KEY (idEntidad)
@@ -97,7 +97,7 @@ CREATE TABLE Entidad (
 
 -- Table: ExamenSegmentario
 CREATE TABLE ExamenSegmentario (
-    idExamen INT NOT NULL AUTO_INCREMENT,
+    idExamen BIGINT NOT NULL AUTO_INCREMENT,
     cabeza varchar(200) NOT NULL,
     cuello varchar(200) NOT NULL,
     torax varchar(200) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE ExamenSegmentario (
 
 -- Table: Examen_Fisico
 CREATE TABLE Examen_Fisico (
-    idExamen INT NOT NULL AUTO_INCREMENT,
+    idExamen BIGINT NOT NULL AUTO_INCREMENT,
     estadoConciencia varchar(200) NOT NULL,
     lenguaje varchar(200) NOT NULL,
     auditivo varchar(200) NOT NULL,
@@ -132,18 +132,18 @@ CREATE TABLE Examen_Fisico (
 
 -- Table: Examenes
 CREATE TABLE Examenes (
-    idExamen INT NOT NULL AUTO_INCREMENT,
+    idExamen BIGINT NOT NULL AUTO_INCREMENT,
     resumen varchar(200) NOT NULL,
     resultados varchar(200) NOT NULL,
     anexos varchar(200) NOT NULL,
-    TipoExamen_idTipoExamen INT NOT NULL,
-    Diagnosticos_idDiagnostico INT NOT NULL,
+    TipoExamen_idTipoExamen BIGINT NOT NULL,
+    Diagnosticos_idDiagnostico BIGINT NOT NULL,
     CONSTRAINT Examenes_pk PRIMARY KEY (idExamen)
 );
 
 -- Table: Fisiologica
 CREATE TABLE Fisiologica (
-    IdFisiologica INT NOT NULL,
+    IdFisiologica BIGINT NOT NULL,
     lactancia varchar(200) NOT NULL,
     iniciacionSexual varchar(200) NOT NULL,
     ginecoObstretico varchar(200) NOT NULL,
@@ -156,12 +156,12 @@ CREATE TABLE Fisiologica (
 
 -- Table: Habitos
 CREATE TABLE Habitos (
-    idHabito INT NOT NULL AUTO_INCREMENT,
+    idHabito BIGINT NOT NULL AUTO_INCREMENT,
     alimentacion varchar(200) NOT NULL,
     apetito varchar(200) NOT NULL,
     sed varchar(200) NOT NULL,
     diuresis varchar(200) NOT NULL,
-    catarsisIntestinal varchar(200) NOT NULL,
+    catarsisBIGINTestinal varchar(200) NOT NULL,
     sueno varchar(200) NOT NULL,
     relacionesSexuales varchar(200) NOT NULL,
     alcohol varchar(200) NOT NULL,
@@ -173,26 +173,26 @@ CREATE TABLE Habitos (
 
 -- Table: Historia_Clinica
 CREATE TABLE Historia_Clinica (
-    idHistoria INT NOT NULL AUTO_INCREMENT,
-    Entidad_idEntidad INT NOT NULL,
-    Antecedentes_idAntecedente INT NOT NULL,
-    Fisiologica_IdFisiologica INT NOT NULL,
+    idHistoria BIGINT NOT NULL AUTO_INCREMENT,
+    Entidad_idEntidad BIGINT NOT NULL,
+    Antecedentes_idAntecedente BIGINT NOT NULL,
+    Fisiologica_IdFisiologica BIGINT NOT NULL,
     DNI_PACIENTE BIGINT DEFAULT NULL,
     CONSTRAINT Historia_Clinica_pk PRIMARY KEY (idHistoria)
 );
 
 -- Table: MedXTrata
 CREATE TABLE MedXTrata (
-    id INT NOT NULL AUTO_INCREMENT,
-    Medicamentos_idMedicamento INT NOT NULL,
-    Tratamientos_idTratamiento INT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    Medicamentos_idMedicamento BIGINT NOT NULL,
+    Tratamientos_idTratamiento BIGINT NOT NULL,
     RepeticionMed varchar(200) NOT NULL,
     CONSTRAINT MedXTrata_pk PRIMARY KEY (id)
 );
 
 -- Table: Medicamentos
 CREATE TABLE Medicamentos (
-    idMedicamento INT NOT NULL AUTO_INCREMENT,
+    idMedicamento BIGINT NOT NULL AUTO_INCREMENT,
     nombreMedicamento varchar(200) NOT NULL,
     gramaje float(10) NOT NULL,
     CONSTRAINT Medicamentos_pk PRIMARY KEY (idMedicamento)
@@ -221,14 +221,14 @@ CREATE TABLE Pacientes (
 
 -- Table: TipoExamen
 CREATE TABLE TipoExamen (
-    idTipoExamen INT NOT NULL,
+    idTipoExamen BIGINT NOT NULL AUTO_INCREMENT,
     nombreTipo varchar(200) NOT NULL,
     CONSTRAINT TipoExamen_pk PRIMARY KEY (idTipoExamen)
 );
 
 -- Table: Tratamientos
 CREATE TABLE Tratamientos (
-    idTratamiento INT NOT NULL AUTO_INCREMENT,
+    idTratamiento BIGINT NOT NULL AUTO_INCREMENT,
     concepto varchar(200) NOT NULL,
     CONSTRAINT Tratamientos_pk PRIMARY KEY (idTratamiento)
 );
